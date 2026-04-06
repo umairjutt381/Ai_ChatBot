@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'chatbot/style.css' %}">
+</head>
+<body>
+<main class="page">
+    <section class="card card--left">
+        <div class="topbar">
+            <p class="subtitle">Signed in as <strong>{{ request.user.username }}</strong></p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn--ghost">Logout</button>
+            </form>
+        </div>
+        <h1>Document Assistant</h1>
+        <p class="subtitle">Upload a document and ask questions instantly.</p>
+
+        <form id="uploadForm" class="stack" enctype="multipart/form-data">
+            <label class="label" for="fileInput">Document file</label>
+            <input id="fileInput" name="file" type="file" accept=".txt,.md,.pdf" required>
+            <button type="submit" class="btn btn--primary">Upload</button>
+        </form>
+
+        <div id="uploadStatus" class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card card--right">
+        <div id="messages" class="messages" aria-live="polite">
+            <article class="bubble bubble--bot">Hi! Upload a document, then ask a question.</article>
+        </div>
+
+        <form id="chatForm" class="chat-input" autocomplete="off">
+            <input id="questionInput" type="text" placeholder="Ask something from your document..." maxlength="2000" required>
+            <button type="submit" class="btn btn--accent">Send</button>
+        </form>
+    </section>
+</main>
+
+<script src="{% static 'chatbot/app.js' %}"></script>
+</body>
+</html>
+

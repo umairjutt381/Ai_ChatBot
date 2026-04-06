@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register - AI Chatbot</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'chatbot/auth.css' %}">
+</head>
+<body>
+<main class="auth-wrap">
+    <section class="auth-card">
+        <h1>Create account</h1>
+        <p class="muted">Register first, then login to access the chatbot.</p>
+
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <label for="id_username">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            <label for="id_password1">Password</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+
+            <label for="id_password2">Confirm password</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="meta">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </section>
+</main>
+</body>
+</html>
+
